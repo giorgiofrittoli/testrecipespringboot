@@ -7,4 +7,6 @@ public interface RecipeService {
 
 	Iterable<Recipe> getRecipes();
 
+	Recipe findById(Long l);
+
 }
