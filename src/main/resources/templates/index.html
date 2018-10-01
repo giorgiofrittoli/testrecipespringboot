@@ -26,6 +26,7 @@
                     <h1 class="panel-title">My Recipes!</h1>
                 </div>
                 <div class="panel-body">
+                    <!--/*@thymesVar id="recipe" type="fritz.test.recipe.model.Recipe"*/-->
                     <div class="table-responsive" th:if="${not #lists.isEmpty(recipes)}">
                         <table class="table table-hover ">
                             <thead class="thead-inverse">
