@@ -1,6 +1,7 @@
 package fritz.test.recepie.controllers;
 
-import fritz.test.recepie.Model.Recipe;
+
+import fritz.test.recepie.model.Recipe;
 import fritz.test.recepie.services.RecipeService;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,36 +13,39 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-
+/**
+ * Created by jt on 6/19/17.
+ */
 public class RecipeControllerTest {
+
 
 	@Mock
 	RecipeService recipeService;
 
-	RecipeController recipeController;
+	RecipeController controller;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 
-		recipeController = new RecipeController(recipeService);
+		controller = new RecipeController(recipeService);
 	}
 
-
 	@Test
-	public void showById() throws Exception {
-		Recipe recipe = Recipe.builder().id(1L).build();
+	public void testGetRecipe() throws Exception {
 
-		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
+		Recipe recipe = new Recipe();
+		recipe.setId(1L);
+
+		MockMvc mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
 		when(recipeService.findById(anyLong())).thenReturn(recipe);
 
 		mockMvc.perform(get("/recipe/show/1"))
 				.andExpect(status().isOk())
-				.andExpect(view().name("recipe/show"));
-
+				.andExpect(view().name("recipe/show"))
+				.andExpect(model().attributeExists("recipe"));
 	}
 }

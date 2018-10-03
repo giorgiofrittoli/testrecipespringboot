@@ -1,6 +1,6 @@
 package fritz.test.recepie.repositories;
 
-import fritz.test.recepie.Model.UnitOfMeasure;
+import fritz.test.recepie.model.UnitOfMeasure;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

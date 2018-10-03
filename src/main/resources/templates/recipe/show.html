@@ -18,6 +18,7 @@
 
     <script>
         console.log();
+
     </script>
 
 </head>
@@ -37,7 +38,7 @@
                                 <h5>Categories:</h5>
                             </div>
                             <div class="col-md-8">
-                                <ul th:each="category : ${recipe.categories}" >
+                                <ul th:each="category : ${recipe.categories}">
                                     <li th:text="${category.description}">cat one</li>
                                     <li th:remove="all">cat two</li>
                                     <li th:remove="all">cat three</li>
@@ -50,7 +51,7 @@
                                 <p>Prep Time:</p>
                             </div>
                             <div class="col-md-1">
-                                <p th:text="${recipe.prepTime}">30 min</p>
+                                <p th:text="${(recipe.prepTime) + ' min'}">30 min</p>
                             </div>
                             <div class="col-md-2">
                                 <p t>Difficulty:</p>
@@ -64,13 +65,13 @@
                                 <p>Cooktime:</p>
                             </div>
                             <div class="col-md-1">
-                                <p th:text="${recipe.cookTime}">30 min</p>
+                                <p th:text="${(recipe.cookTime) + ' min'}">30 min</p>
                             </div>
                             <div class="col-md-2">
                                 <p>Servings:</p>
                             </div>
                             <div class="col-md-1">
-                                <p th:text="${recipe.servTime}">4</p>
+                                <p th:text="${recipe.servings}">4</p>
                             </div>
                         </div>
                         <div class="row">
@@ -78,13 +79,14 @@
                                 <p>Source:</p>
                             </div>
                             <div class="col-md-1">
-                                <p >30 min</p>
+                                <p th:text="${(recipe.source)}">30 min</p>
                             </div>
                             <div class="col-md-2">
                                 <p>URL:</p>
                             </div>
                             <div class="col-md-1">
-                                <p th:text="${recipe.url}">http://www.example.com</p>
+                                <a href="#" th:href="${recipe.url}" target="_blank"><p th:text="${recipe.url}">
+                                    http://www.example.com></p></a>
                             </div>
                         </div>
                     </div>
@@ -97,7 +99,9 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <ul th:each="ingredient : ${recipe.ingredients}">
-                                    <li th:text="${ingredient.description}">1 Cup of milk</li>
+                                    <li th:text="${(ingredient.amount) + ' ' + (ingredient.unitOfMeasure.description) + ' - ' + (ingredient.description)}">
+                                        1 Cup of milk
+                                    </li>
                                     <li th:remove="all">1 Teaspoon of chocolate</li>
                                     <li th:remove="all">1 Teaspoon of Sugar</li>
                                 </ul>
@@ -112,7 +116,8 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <p th:text="${recipe.directions}">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
+                                <p th:text="${recipe.directions}">Lorem ipsum dolor sit amet, consectetuer adipiscing
+                                    elit. Aenean commodo ligula eget
                                     dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
                                     nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
                                     quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet
@@ -136,7 +141,8 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <p th:text="${recipe.note.recipeNotes}">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget
+                                <p th:text="${recipe.note.recipeNotes}">Lorem ipsum dolor sit amet, consectetuer
+                                    adipiscing elit. Aenean commodo ligula eget
                                     dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
                                     nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
                                     quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet

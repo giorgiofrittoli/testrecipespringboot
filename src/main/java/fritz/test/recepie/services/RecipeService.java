@@ -1,12 +1,18 @@
 package fritz.test.recepie.services;
 
+import fritz.test.recepie.commands.RecipeCommand;
+import fritz.test.recepie.model.Recipe;
 
-import fritz.test.recepie.Model.Recipe;
+import java.util.Set;
 
+/**
+ * Created by jt on 6/13/17.
+ */
 public interface RecipeService {
 
-	Iterable<Recipe> getRecipes();
+    Set<Recipe> getRecipes();
 
-	Recipe findById(Long l);
+    Recipe findById(Long l);
 
+    RecipeCommand saveRecipeCommand(RecipeCommand command);
 }

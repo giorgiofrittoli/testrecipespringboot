@@ -1,4 +1,4 @@
-package fritz.test.recepie.Model;
+package fritz.test.recepie.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,8 +30,8 @@ public class Recipe {
 	@Column(name = "cook_time")
 	private Integer cookTime;
 
-	@Column(name = "serv_time")
-	private Integer servTime;
+	@Column(name = "servings")
+	private Integer servings;
 
 	@Column(name = "source")
 	private String source;

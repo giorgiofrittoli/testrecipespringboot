@@ -1,4 +1,4 @@
-package fritz.test.recepie.Model;
+package fritz.test.recepie.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

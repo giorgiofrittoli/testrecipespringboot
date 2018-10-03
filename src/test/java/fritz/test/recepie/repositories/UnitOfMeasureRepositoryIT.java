@@ -1,6 +1,6 @@
 package fritz.test.recepie.repositories;
 
-import fritz.test.recepie.Model.UnitOfMeasure;
+import fritz.test.recepie.model.UnitOfMeasure;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +12,9 @@ import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Created by jt on 6/17/17.
+ */
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class UnitOfMeasureRepositoryIT {
@@ -21,21 +24,22 @@ public class UnitOfMeasureRepositoryIT {
 
 	@Before
 	public void setUp() throws Exception {
-
 	}
 
 	@Test
-	//@DirtiesContext
-	public void findByDescriptionTeaspoon() {
-		Optional<UnitOfMeasure> optionalUnitOfMeasure = unitOfMeasureRepository.findByDescription("Teaspoon");
+	public void findByDescription() throws Exception {
 
-		assertEquals("Teaspoon", optionalUnitOfMeasure.get().getDescription());
+		Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByDescription("Teaspoon");
+
+		assertEquals("Teaspoon", uomOptional.get().getDescription());
 	}
 
 	@Test
-	public void findByDescriptionCup() {
-		Optional<UnitOfMeasure> optionalUnitOfMeasure = unitOfMeasureRepository.findByDescription("Cup");
+	public void findByDescriptionCup() throws Exception {
 
-		assertEquals("Cup", optionalUnitOfMeasure.get().getDescription());
+		Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByDescription("Cup");
+
+		assertEquals("Cup", uomOptional.get().getDescription());
 	}
+
 }
