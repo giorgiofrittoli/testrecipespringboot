@@ -1,9 +1,10 @@
-package fritz.test.recepie.converters;
+package fritz.test.recepie.services;
 
 import fritz.test.recepie.commands.RecipeCommand;
+import fritz.test.recepie.converters.RecipeCommandToRecipe;
+import fritz.test.recepie.converters.RecipeToRecipeCommand;
 import fritz.test.recepie.model.Recipe;
 import fritz.test.recepie.repositories.RecipeRepository;
-import fritz.test.recepie.services.RecipeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,5 +59,11 @@ public class RecipeServiceImpl implements RecipeService {
 		Recipe savedRecipe = recipeRepository.save(detachedRecipe);
 		log.debug("Saved RecipeId:" + savedRecipe.getId());
 		return recipeToRecipeCommand.convert(savedRecipe);
+	}
+
+	@Override
+	@Transactional
+	public RecipeCommand findCommandById(Long aLong){
+		return recipeToRecipeCommand.convert(findById(aLong));
 	}
 }

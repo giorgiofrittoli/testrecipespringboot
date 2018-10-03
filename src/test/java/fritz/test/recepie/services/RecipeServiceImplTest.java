@@ -1,7 +1,6 @@
 package fritz.test.recepie.services;
 
 import fritz.test.recepie.converters.RecipeCommandToRecipe;
-import fritz.test.recepie.converters.RecipeServiceImpl;
 import fritz.test.recepie.converters.RecipeToRecipeCommand;
 import fritz.test.recepie.model.Recipe;
 import fritz.test.recepie.repositories.RecipeRepository;
