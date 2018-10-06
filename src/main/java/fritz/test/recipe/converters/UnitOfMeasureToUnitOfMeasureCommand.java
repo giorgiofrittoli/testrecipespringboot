@@ -18,7 +18,7 @@ public class UnitOfMeasureToUnitOfMeasureCommand implements Converter<UnitOfMeas
     public UnitOfMeasureCommand convert(UnitOfMeasure unitOfMeasure) {
 
         if (unitOfMeasure != null) {
-            final UnitOfMeasureCommand uomc = new UnitOfMeasureCommand();
+            final fritz.test.recipe.commands.UnitOfMeasureCommand uomc = new fritz.test.recipe.commands.UnitOfMeasureCommand();
             uomc.setId(unitOfMeasure.getId());
             uomc.setDescription(unitOfMeasure.getDescription());
             return uomc;

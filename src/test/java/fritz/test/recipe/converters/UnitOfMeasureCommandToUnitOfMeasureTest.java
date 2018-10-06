@@ -1,6 +1,5 @@
 package fritz.test.recipe.converters;
 
-import fritz.test.recipe.commands.UnitOfMeasureCommand;
 import fritz.test.recipe.model.UnitOfMeasure;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,13 +26,13 @@ public class UnitOfMeasureCommandToUnitOfMeasureTest {
 
     @Test
     public void testEmptyObject() throws Exception {
-        assertNotNull(converter.convert(new UnitOfMeasureCommand()));
+        assertNotNull(converter.convert(new fritz.test.recipe.commands.UnitOfMeasureCommand()));
     }
 
     @Test
     public void convert() throws Exception {
         //given
-        UnitOfMeasureCommand command = new UnitOfMeasureCommand();
+        fritz.test.recipe.commands.UnitOfMeasureCommand command = new fritz.test.recipe.commands.UnitOfMeasureCommand();
         command.setId(LONG_VALUE);
         command.setDescription(DESCRIPTION);
 

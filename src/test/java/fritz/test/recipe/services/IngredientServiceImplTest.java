@@ -1,11 +1,14 @@
 package fritz.test.recipe.services;
 
 import fritz.test.recipe.commands.IngredientCommand;
+import fritz.test.recipe.converters.IngredientCommandToIngredient;
 import fritz.test.recipe.converters.IngredientToIngredientCommand;
+import fritz.test.recipe.converters.UnitOfMeasureCommandToUnitOfMeasure;
 import fritz.test.recipe.converters.UnitOfMeasureToUnitOfMeasureCommand;
 import fritz.test.recipe.model.Ingredient;
 import fritz.test.recipe.model.Recipe;
 import fritz.test.recipe.repositories.RecipeRepository;
+import fritz.test.recipe.repositories.UnitOfMeasureRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -19,22 +22,21 @@ import static org.mockito.Mockito.*;
 
 public class IngredientServiceImplTest {
 
-	private final IngredientToIngredientCommand ingredientToIngredientCommand;
+	private final IngredientToIngredientCommand ingredientToIngredientCommand = new IngredientToIngredientCommand(new UnitOfMeasureToUnitOfMeasureCommand());
+	private final IngredientCommandToIngredient ingredientCommandToIngredient = new IngredientCommandToIngredient(new UnitOfMeasureCommandToUnitOfMeasure());
 
 	@Mock
 	RecipeRepository recipeRepository;
+	@Mock
+	UnitOfMeasureRepository unitOfMeasureRepository;
 
 	IngredientService ingredientService;
 
-	//init converters
-	public IngredientServiceImplTest() {
-		this.ingredientToIngredientCommand = new IngredientToIngredientCommand(new UnitOfMeasureToUnitOfMeasureCommand());
-	}
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		ingredientService = new IngredientServiceImpl(recipeRepository, ingredientToIngredientCommand);
+		ingredientService = new IngredientServiceImpl(recipeRepository, ingredientToIngredientCommand, ingredientCommandToIngredient, unitOfMeasureRepository);
 	}
 
 	@Test
@@ -67,5 +69,7 @@ public class IngredientServiceImplTest {
 		assertEquals(Long.valueOf(1L), ingredientCommand.getRecipeId());
 		verify(recipeRepository, times(1)).findById(anyLong());
 	}
+
+
 
 }

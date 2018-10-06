@@ -1,6 +1,5 @@
 package fritz.test.recipe.converters;
 
-import fritz.test.recipe.commands.UnitOfMeasureCommand;
 import fritz.test.recipe.model.UnitOfMeasure;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,7 +38,7 @@ public class UnitOfMeasureToUnitOfMeasureCommandTest {
         uom.setId(LONG_VALUE);
         uom.setDescription(DESCRIPTION);
         //when
-        UnitOfMeasureCommand uomc = converter.convert(uom);
+        fritz.test.recipe.commands.UnitOfMeasureCommand uomc = converter.convert(uom);
 
         //then
         assertEquals(LONG_VALUE, uomc.getId());
