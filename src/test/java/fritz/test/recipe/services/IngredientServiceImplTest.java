@@ -70,6 +70,25 @@ public class IngredientServiceImplTest {
 		verify(recipeRepository, times(1)).findById(anyLong());
 	}
 
+	@Test
+	public void testDeleteIngredient() {
+		//given
+		Recipe recipe = new Recipe();
+		recipe.setId(1L);
+		Ingredient ingredient = new Ingredient();
+		ingredient.setRecipe(recipe);
+		ingredient.setId(1L);
+		recipe.addIngredient(ingredient);
+		Optional<Recipe> optionalRecipe = Optional.of(recipe);
+
+		//when
+		when(recipeRepository.findById(anyLong())).thenReturn(optionalRecipe);
+		ingredientService.deleteIngredient(1L, 1L);
+
+		//then
+		verify(recipeRepository, times(1)).findById(anyLong());
+		verify(recipeRepository, times(1)).save(any(Recipe.class));
 
 
+	}
 }

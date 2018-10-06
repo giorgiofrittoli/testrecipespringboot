@@ -88,7 +88,7 @@ public class IngredientControllerTest {
 	}
 
 	@Test
-	public void testNewIngredientForm() throws Exception{
+	public void testNewIngredientForm() throws Exception {
 		//given
 		RecipeCommand recipeCommand = new RecipeCommand();
 		recipeCommand.setId(1L);
@@ -105,5 +105,14 @@ public class IngredientControllerTest {
 				.andExpect(model().attributeExists("unitOfMeasureList"));
 
 
+	}
+
+	@Test
+	public void testDeleteIngredient() throws Exception {
+		mockMvc.perform(get("/recipe/1/ingredient/1/delete"))
+				.andExpect(status().is3xxRedirection())
+				.andExpect(view().name("redirect:/recipe/1/ingredients"));
+
+		verify(ingredientService, times(1)).deleteIngredient(anyLong(), anyLong());
 	}
 }

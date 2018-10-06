@@ -48,7 +48,7 @@ public class RecipeController {
 
 	@GetMapping
 	@RequestMapping("recipe/{id}/delete")
-	public String deleteRecipe(@PathVariable String id, Model model) {
+	public String deleteRecipe(@PathVariable String id) {
 		recipeService.deleteById(new Long(id));
 		return "redirect:/";
 	}
