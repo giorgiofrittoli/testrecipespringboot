@@ -1,15 +1,15 @@
 package fritz.test.recipe.commands;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class IngredientCommand {
 	private Long id;
 	private Long recipeId;

@@ -1,6 +1,8 @@
 package fritz.test.recipe.controllers;
 
 import fritz.test.recipe.commands.IngredientCommand;
+import fritz.test.recipe.commands.RecipeCommand;
+import fritz.test.recipe.commands.UnitOfMeasureCommand;
 import fritz.test.recipe.services.IngredientService;
 import fritz.test.recipe.services.RecipeService;
 import fritz.test.recipe.services.UnitOfMeasureService;
@@ -45,6 +47,22 @@ public class IngredientController {
 	public String updateIngredient(@PathVariable String recipeId, @PathVariable String id, Model model) {
 		log.debug("request for ingredient " + id + " form ");
 		model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(id)));
+		model.addAttribute("unitOfMeasureList", unitOfMeasureService.getAllUnitOfMeasure());
+		return "/recipe/ingredient/form";
+	}
+
+	@GetMapping
+	@RequestMapping("recipe/{recipeId}/ingredient/new")
+	public String insertIngredient(@PathVariable String recipeId, Model model) {
+		log.debug("request for new ingredient ingredient form");
+
+		RecipeCommand recipeCommand = recipeService.findCommandById(Long.valueOf(recipeId));
+
+		if (recipeCommand == null)
+			throw new RuntimeException("Recipe not found");
+
+		IngredientCommand ingredientCommand = IngredientCommand.builder().recipeId(Long.valueOf(recipeId)).unitOfMeasure(new UnitOfMeasureCommand()).build();
+		model.addAttribute("ingredient", ingredientCommand);
 		model.addAttribute("unitOfMeasureList", unitOfMeasureService.getAllUnitOfMeasure());
 		return "/recipe/ingredient/form";
 	}

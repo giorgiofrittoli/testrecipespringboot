@@ -1,10 +1,12 @@
 package fritz.test.recipe.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "unit_of_measure")
 public class UnitOfMeasure {
