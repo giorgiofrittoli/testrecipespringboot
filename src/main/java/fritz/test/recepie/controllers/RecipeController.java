@@ -2,10 +2,12 @@ package fritz.test.recepie.controllers;
 
 import fritz.test.recepie.commands.RecipeCommand;
 import fritz.test.recepie.services.RecipeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @Controller
 public class RecipeController {
 
