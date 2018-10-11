@@ -3,6 +3,7 @@ package it.frigir.services;
 import it.frigir.commands.RecipeCommand;
 import it.frigir.converters.RecipeCommandToRecipe;
 import it.frigir.converters.RecipeToRecipeCommand;
+import it.frigir.exceptions.NotFoundException;
 import it.frigir.model.Recipe;
 import it.frigir.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -45,7 +46,7 @@ public class RecipeServiceImpl implements RecipeService {
 		Optional<Recipe> recipeOptional = recipeRepository.findById(l);
 
 		if (!recipeOptional.isPresent()) {
-			throw new RuntimeException("Recipe Not Found!");
+			throw new NotFoundException("Recipe Not Found! For ID " + l.toString());
 		}
 
 		return recipeOptional.get();

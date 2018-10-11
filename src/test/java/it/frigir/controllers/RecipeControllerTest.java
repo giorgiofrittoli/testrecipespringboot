@@ -2,6 +2,7 @@ package it.frigir.controllers;
 
 
 import it.frigir.commands.RecipeCommand;
+import it.frigir.exceptions.NotFoundException;
 import it.frigir.model.Recipe;
 import it.frigir.services.RecipeService;
 import org.junit.Before;
@@ -97,5 +98,26 @@ public class RecipeControllerTest {
 				.andExpect(view().name("redirect:/"));
 
 		verify(recipeService, times(1)).deleteById(anyLong());
+	}
+
+	@Test
+	public void testGetRecipeNotFound() throws Exception {
+
+		when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+
+		mockMvc.perform(get("/recipe/999/show"))
+				.andExpect(status().isNotFound())
+				.andExpect(view().name("404Error"))
+				.andExpect(model().attributeExists("exception"));
+	}
+
+	@Test
+	public void testGetRecipeNumberFormatEx() throws Exception {
+
+
+		mockMvc.perform(get("/recipe/asd/show"))
+				.andExpect(status().isBadRequest())
+				.andExpect(view().name("400Error"))
+				.andExpect(model().attributeExists("exception"));
 	}
 }

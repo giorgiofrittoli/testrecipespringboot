@@ -2,6 +2,7 @@ package it.frigir.services;
 
 import it.frigir.converters.RecipeCommandToRecipe;
 import it.frigir.converters.RecipeToRecipeCommand;
+import it.frigir.exceptions.NotFoundException;
 import it.frigir.model.Recipe;
 import it.frigir.repositories.RecipeRepository;
 import org.junit.Before;
@@ -18,9 +19,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 
-/**
- * Created by jt on 6/17/17.
- */
 public class RecipeServiceImplTest {
 
 	RecipeServiceImpl recipeService;
@@ -54,6 +52,19 @@ public class RecipeServiceImplTest {
 		assertNotNull("Null recipe returned", recipeReturned);
 		verify(recipeRepository, times(1)).findById(anyLong());
 		verify(recipeRepository, never()).findAll();
+	}
+
+	@Test(expected = NotFoundException.class)
+	public void getRecipeBidIdNotFound() throws Exception {
+		Optional<Recipe> recipeOptional = Optional.empty();
+		when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+		Recipe recipe = recipeService.findById(1L);
+	}
+
+	@Test(expected = NumberFormatException.class)
+	public void getRecipeByIdNumberFormatEx() throws Exception{
+		Recipe recipe = recipeService.findById(Long.valueOf("sdasdadsadsa"));
 	}
 
 	@Test
