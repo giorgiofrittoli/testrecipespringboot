@@ -7,12 +7,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
 
 @Slf4j
 @Controller
 public class RecipeController {
+
+	final private static String FORM_VIEW = "/recipe/form";
+	final private static String SHOW_VIEW = "/recipe/show";
 
 	final private RecipeService recipeService;
 
@@ -23,24 +29,30 @@ public class RecipeController {
 	@GetMapping({"/recipe/{id}/show"})
 	public String showById(@PathVariable String id, Model model) {
 		model.addAttribute("recipe", recipeService.findById(new Long(id)));
-		return "recipe/show";
+		return SHOW_VIEW;
 	}
 
 	@GetMapping({"recipe/new"})
 	public String newRecipe(Model model) {
 		model.addAttribute("recipe", new RecipeCommand());
-		return "recipe/form";
+		return FORM_VIEW;
 	}
 
 	@GetMapping({"recipe/{id}/update"})
 	public String updateRecipe(@PathVariable String id, Model model) {
 		model.addAttribute("recipe", recipeService.findCommandById(new Long(id)));
-		return "recipe/form";
+		return FORM_VIEW;
 	}
 
 	@PostMapping("recipe")
 	//@RequestMapping(name = "recipe", method = RequestMethod.POST)
-	public String saveUpdate(@ModelAttribute RecipeCommand recipeCommand) {
+	public String saveUpdate(@Valid @ModelAttribute("recipe") RecipeCommand recipeCommand, BindingResult result) {
+
+		if (result.hasErrors()) {
+			result.getAllErrors().forEach(objectError -> log.debug(objectError.toString()));
+			return FORM_VIEW;
+		}
+
 		RecipeCommand savedRecipeCommand = recipeService.saveRecipeCommand(recipeCommand);
 		return "redirect:/recipe/" + +savedRecipeCommand.getId() + "/show";
 	}
@@ -58,17 +70,6 @@ public class RecipeController {
 		log.debug("404 exception thrown " + e.getMessage());
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("404Error");
-		modelAndView.addObject("exception", e);
-		return modelAndView;
-
-	}
-
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(NumberFormatException.class)
-	public ModelAndView handleNumberFormatException(Exception e) {
-		log.debug("400 exception thrown " + e.getMessage());
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("400Error");
 		modelAndView.addObject("exception", e);
 		return modelAndView;
 

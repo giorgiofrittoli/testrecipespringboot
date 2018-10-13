@@ -39,7 +39,9 @@ public class ImageControllerTest {
 
 		imageController = new ImageController(recipeService, imageService);
 
-		mockMvc = MockMvcBuilders.standaloneSetup(imageController).build();
+		mockMvc = MockMvcBuilders.standaloneSetup(imageController)
+				.setControllerAdvice(new ControllerExceptionHandler())
+				.build();
 	}
 
 	@Test
@@ -71,7 +73,7 @@ public class ImageControllerTest {
 
 
 	@Test
-	public void renderImage() throws  Exception{
+	public void renderImage() throws Exception {
 
 		//given
 		RecipeCommand recipeCommand = new RecipeCommand();
@@ -89,8 +91,7 @@ public class ImageControllerTest {
 				.andReturn().getResponse();
 
 
-		assertEquals(s.getBytes().length,response.getContentAsByteArray().length);
-
+		assertEquals(s.getBytes().length, response.getContentAsByteArray().length);
 
 
 	}
