@@ -39,7 +39,8 @@ jobs:
 
     # run tests!
     - run: mvn integration-test  cobertura:cobertura
-    - store_test_result:
+
+    - store_test_results:
         path:  target/surefire-reports
 
     - run:
