@@ -17,6 +17,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RecipeCommand {
+
 	private Long id;
 
 	@NotBlank
